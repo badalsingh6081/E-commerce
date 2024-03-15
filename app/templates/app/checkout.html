@@ -1,0 +1,79 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock title %}
+{% block main-content %}
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm-6">
+
+
+
+
+      <h4>Order Summary</h4>
+      <hr>
+      {% for item in cart_items %}
+
+      <div class="card mb-2">
+        <div class="card-body">
+
+          <div class="row ">
+            <div class="col-sm-3 text-center align-self-center"><img src="{{item.product.product_image.url}}" alt=""
+                srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"> </div>
+            <div class=" col-sm-5 offset-sm-2 mt-5">
+              <h5>
+                  Product: {{item.product.title}}
+              </h5>
+              <p>Quantity: {{item.quantity}}</p>
+              <p class="fw-bold">Price: {{item.total_cost}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <p class="fw-bold">Total Cost + Rs. 70 = {{total_amount}}
+      </p>
+      <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure
+        optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil
+        in et quis?</small>
+    </div>
+
+
+
+
+    <div class="col-sm-4 offset-sm-1">
+      <h4>Select Shipping Address</h4>
+
+
+
+      <hr>
+      {% for ad in add %}
+
+      <form action="/process-payment" id="myform" method="get">
+        <div class="card">
+          <div class="card-body">
+            <h5>{{ad.name}}</h5>
+            <p>{{ad.locality}},{{ad.city}},{{ad.state}} - {{ad.zipcode}}</p>
+          </div>
+        </div>
+
+        <div class="form-check mt-2 mb-5">
+          <input type="hidden" name="total_amount" value="{{total_amount}}">
+          <input type="radio" required="form-check-input" value="{{ad.id}}" name="custid"
+            id="custadd{{forloop.counter}}">
+          <label for="custadd{{forloop.counter}}" class="form-check-label fw-bold">Address: {{forloop.counter}}</label>
+        </div>
+        {% endfor %}
+        <div class="text-end">
+          <button type="submit" id="paypal-button-container" class="btn btn-warning mt-3 px-5 fw-bold">Pay By
+            Paypal</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock main-content %}
+
+{% block payment-gateway %}
+{% endblock payment-gateway %}

@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Payment Process{% endblock title %}
+{% block main-content %}
+<div class="container">
+    <div class="row ">
+        <div class="col-sm-5 offset-sm-5">
+
+            
+            
+            <h2 class="">Pay with Paypal</h4>
+            <h3>
+
+                {{ form.render }}
+            </h3>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}
